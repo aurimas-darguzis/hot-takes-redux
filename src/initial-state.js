@@ -31,6 +31,6 @@ const initialState = {
     }
   },
   newMessage: ''
-};
+}
 
-export default initialState;
+export default initialState

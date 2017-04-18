@@ -4,5 +4,5 @@ export const addUser = (user) => {
     displayName: user.displayName,
     uid: user.uid,
     photoURL: user.photoURL
-  };
-};
+  }
+}
