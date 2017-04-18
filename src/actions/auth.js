@@ -4,10 +4,7 @@ import { addUser } from './users'
 export const signIn = () => {
   return (dispatch) => {
     dispatch({ type: 'ATTEMPTING_LOGIN'})
-      auth.signInWithPopup(googleAuthProvider).then(({ user }) => {
-        dispatch(signedIn(user))
-        dispatch(addUser(user))
-      })
+      auth.signInWithPopup(googleAuthProvider)
     }
   }
 
@@ -16,7 +13,7 @@ export const signOut = () => {
     dispatch({ type: 'ATTEMPTING_LOGIN'})
     setTimeout(() => {
       auth.signOut().then(() => {
-        dispatch(signedOut())
+        
       })
     }, 2000)
   }
@@ -35,5 +32,18 @@ const signedIn = (user) => {
 const signedOut = () => {
   return {
     type: 'SIGN_OUT'
+  }
+}
+
+export const startListeningToAuthChanges = () => {
+  return (dispatch) => {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        dispatch(signedIn(user))
+        dispatch(addUser(user))
+      } else {
+        dispatch(signedOut())
+      }
+    })
   }
 }
